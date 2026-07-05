@@ -6,4 +6,3 @@ import { InMemoryStore } from "./in-memory.store";
   providers: [InMemoryStore],
 })
 export class DataModule {}
-

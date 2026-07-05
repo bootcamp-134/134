@@ -12,4 +12,3 @@ export class AchievementsController {
     return this.achievementsService.getMyAchievements();
   }
 }
-

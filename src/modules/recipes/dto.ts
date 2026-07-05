@@ -20,4 +20,3 @@ export class RecipeQueryDto {
   @IsString()
   allergenFree?: string;
 }
-

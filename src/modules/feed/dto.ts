@@ -11,7 +11,9 @@ export class CreateFeedPostDto {
   @IsString()
   recipeId!: string;
 
-  @ApiProperty({ example: "https://cdn.example.com/uploads/tavuklu-patates.jpg" })
+  @ApiProperty({
+    example: "https://cdn.example.com/uploads/tavuklu-patates.jpg",
+  })
   @IsUrl()
   imageUrl!: string;
 
@@ -20,4 +22,3 @@ export class CreateFeedPostDto {
   @IsString()
   comment?: string;
 }
-

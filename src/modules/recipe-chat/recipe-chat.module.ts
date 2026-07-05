@@ -9,4 +9,3 @@ import { RecipeChatService } from "./recipe-chat.service";
   providers: [RecipeChatService],
 })
 export class RecipeChatModule {}
-

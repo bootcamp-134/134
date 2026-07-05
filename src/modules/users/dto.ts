@@ -50,7 +50,10 @@ export class OnboardingDto {
   @IsString({ each: true })
   dislikedIngredients!: string[];
 
-  @ApiProperty({ enum: ["beginner", "intermediate", "advanced"], example: "beginner" })
+  @ApiProperty({
+    enum: ["beginner", "intermediate", "advanced"],
+    example: "beginner",
+  })
   @IsIn(["beginner", "intermediate", "advanced"])
   cookingSkill!: CookingSkill;
 
@@ -65,4 +68,3 @@ export class OnboardingDto {
   @IsString()
   shoppingFrequency?: string;
 }
-

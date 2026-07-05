@@ -26,4 +26,3 @@ export class RecipeChatController {
     return this.recipeChatService.sendMessage(sessionId, dto);
   }
 }
-

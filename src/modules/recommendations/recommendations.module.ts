@@ -9,4 +9,3 @@ import { RecommendationsService } from "./recommendations.service";
   providers: [RecommendationsService],
 })
 export class RecommendationsModule {}
-

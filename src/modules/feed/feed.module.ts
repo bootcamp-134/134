@@ -9,4 +9,3 @@ import { FeedService } from "./feed.service";
   providers: [FeedService],
 })
 export class FeedModule {}
-

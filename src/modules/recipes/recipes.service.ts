@@ -19,4 +19,3 @@ export class RecipesService {
     return this.store.getRecipe(recipeId);
   }
 }
-

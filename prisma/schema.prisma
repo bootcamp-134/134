@@ -4,7 +4,6 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
 }
 
 enum IncomeLevel {
@@ -20,33 +19,33 @@ enum CookingSkill {
 }
 
 model User {
-  id           String        @id @default(cuid())
-  email        String        @unique
+  id           String              @id @default(cuid())
+  email        String              @unique
   passwordHash String
-  createdAt    DateTime      @default(now())
-  updatedAt    DateTime      @updatedAt
+  createdAt    DateTime            @default(now())
+  updatedAt    DateTime            @updatedAt
   profile      UserProfile?
   chatSessions RecipeChatSession[]
   feedPosts    FeedPost[]
 }
 
 model UserProfile {
-  id                   String       @id @default(cuid())
-  userId               String       @unique
-  fullName             String
-  ageRange             String?
-  householdSize        Int
-  incomeLevel          IncomeLevel
-  weeklyFoodBudget     Int?
-  dietPreferences      String[]
-  allergens            String[]
-  dislikedIngredients  String[]
-  cookingSkill         CookingSkill
-  availableEquipment   String[]
-  shoppingFrequency    String?
-  createdAt            DateTime     @default(now())
-  updatedAt            DateTime     @updatedAt
-  user                 User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id                  String       @id @default(cuid())
+  userId              String       @unique
+  fullName            String
+  ageRange            String?
+  householdSize       Int
+  incomeLevel         IncomeLevel
+  weeklyFoodBudget    Int?
+  dietPreferences     String[]
+  allergens           String[]
+  dislikedIngredients String[]
+  cookingSkill        CookingSkill
+  availableEquipment  String[]
+  shoppingFrequency   String?
+  createdAt           DateTime     @default(now())
+  updatedAt           DateTime     @updatedAt
+  user                User         @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Ingredient {
@@ -58,23 +57,23 @@ model Ingredient {
 }
 
 model Recipe {
-  id                  String             @id @default(cuid())
-  title               String
-  description         String
-  servings            Int
-  cookingMinutes      Int
-  difficulty          String
-  estimatedTotalCost  Int
-  tags                String[]
-  allergens           String[]
-  calories            Int?
-  proteinGrams        Int?
-  carbGrams           Int?
-  fatGrams            Int?
-  steps               RecipeStep[]
-  ingredients         RecipeIngredient[]
-  chatSessions        RecipeChatSession[]
-  feedPosts           FeedPost[]
+  id                 String              @id @default(cuid())
+  title              String
+  description        String
+  servings           Int
+  cookingMinutes     Int
+  difficulty         String
+  estimatedTotalCost Int
+  tags               String[]
+  allergens          String[]
+  calories           Int?
+  proteinGrams       Int?
+  carbGrams          Int?
+  fatGrams           Int?
+  steps              RecipeStep[]
+  ingredients        RecipeIngredient[]
+  chatSessions       RecipeChatSession[]
+  feedPosts          FeedPost[]
 }
 
 model RecipeIngredient {
@@ -126,4 +125,3 @@ model FeedPost {
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   recipe    Recipe   @relation(fields: [recipeId], references: [id], onDelete: Cascade)
 }
-

@@ -6,8 +6,16 @@ Bereket AI mobil uygulaması için NestJS tabanlı backend başlangıç projesid
 
 - NestJS + TypeScript
 - Swagger / OpenAPI
-- Prisma schema + PostgreSQL hedefi
+- Prisma ORM v7 schema + PostgreSQL hedefi
 - İlk geliştirme için in-memory mock seed data
+
+## Mevcut Durum
+
+- Gerçek database bağlantısı aktif değildir.
+- Veriler `InMemoryStore` içinde seed/mock olarak tutulur.
+- Auth tokenları gerçek JWT değildir; mobil entegrasyon için mock string döner.
+- Tarif önerisi gerçek AI/ML modeli değil, kural tabanlı geliştirme skorudur.
+- Swagger staging/demo entegrasyonu için açıktır; production'da `SWAGGER_ENABLED=false` yapılabilir.
 
 ## Çalıştırma
 
@@ -18,6 +26,13 @@ pnpm run dev
 ```
 
 API varsayılan olarak `http://localhost:3001/api` altında çalışır.
+
+Kontrol komutları:
+
+```bash
+pnpm run lint
+pnpm run build
+```
 
 Swagger dokümanı:
 
@@ -45,9 +60,25 @@ http://localhost:3001/api/docs
 
 Bu ilk backend sürümü gerçek AI veya gerçek ML modeli içermez. Tarif önerisi kural tabanlı skorla ve seed veriyle çalışır. Burak'ın veri/ML pipeline'ı olgunlaştıkça seed data PostgreSQL tablolarına taşınacak ve öneri skoru geliştirilecektir.
 
+## Deploy
+
+Önerilen ilk deploy ortamı Vercel staging/dev API projesidir. Vercel güncel olarak NestJS backend'i `src/main.ts` entrypoint'iyle sıfır konfigürasyon deploy edebilir.
+
+Temel ayarlar:
+
+- Branch: `backend`
+- Root directory: repo kökü
+- Node.js: `24.x`
+- Install command: varsayılan bırakılabilir; `pnpm-lock.yaml` üzerinden pnpm algılanır.
+- Build command: `pnpm run build`
+- Health check: `/api/health`
+- Swagger: `/api/docs`
+
+Detaylı notlar için [Deployment Notes](docs/deployment.md) dosyasına bakın.
+
 ## Dokümantasyon
 
 - [API Contract](docs/api-contract.md)
 - [Backend Roadmap](docs/backend-roadmap.md)
 - [Data Pipeline Notes](docs/data-pipeline.md)
-
+- [Deployment Notes](docs/deployment.md)

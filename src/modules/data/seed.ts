@@ -36,7 +36,12 @@ export const seedRecipes: Recipe[] = [
       { amount: "1 adet", estimatedPrice: 0, name: "domates" },
       { amount: "1 yemek kaşığı", estimatedPrice: 55, name: "salça" },
       { amount: "1 adet", estimatedPrice: 40, name: "biber" },
-      { amount: "2 yemek kaşığı", estimatedPrice: 45, name: "krema", optional: true },
+      {
+        amount: "2 yemek kaşığı",
+        estimatedPrice: 45,
+        name: "krema",
+        optional: true,
+      },
     ],
     nutrition: {
       calories: 520,
@@ -94,7 +99,12 @@ export const seedRecipes: Recipe[] = [
       { amount: "1 su bardağı", estimatedPrice: 45, name: "mercimek" },
       { amount: "1 adet", estimatedPrice: 0, name: "soğan" },
       { amount: "1 adet", estimatedPrice: 20, name: "havuç" },
-      { amount: "1 yemek kaşığı", estimatedPrice: 30, name: "tereyağı", optional: true },
+      {
+        amount: "1 yemek kaşığı",
+        estimatedPrice: 30,
+        name: "tereyağı",
+        optional: true,
+      },
     ],
     nutrition: {
       calories: 280,
@@ -169,4 +179,3 @@ export const seedRecipes: Recipe[] = [
     title: "Sebzeli Bulgur Pilavı",
   },
 ];
-

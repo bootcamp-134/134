@@ -9,4 +9,3 @@ export class AchievementsService {
     return this.store.getAchievements(this.store.getDefaultUserId());
   }
 }
-

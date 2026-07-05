@@ -46,4 +46,3 @@ Raw recipe dataset
 ## Alerjen Güvenliği
 
 Alerjen alanında ML tahmini kesin bilgi gibi gösterilmemelidir. Veri kaynağı belirsizse mobil uygulama "içerebilir / doğrulanmalı" uyarısı göstermelidir.
-

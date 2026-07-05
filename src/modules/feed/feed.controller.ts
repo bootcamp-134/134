@@ -18,4 +18,3 @@ export class FeedController {
     return this.feedService.createPost(dto);
   }
 }
-

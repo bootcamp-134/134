@@ -18,4 +18,3 @@ export class RecipesController {
     return this.recipesService.getRecipe(id);
   }
 }
-

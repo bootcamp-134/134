@@ -84,7 +84,9 @@ export class InMemoryStore {
         ? normalize(recipe.title).includes(normalize(search)) ||
           normalize(recipe.description).includes(normalize(search))
         : true;
-      const matchesTag = tag ? recipe.tags.map(normalize).includes(normalize(tag)) : true;
+      const matchesTag = tag
+        ? recipe.tags.map(normalize).includes(normalize(tag))
+        : true;
       const avoidsAllergens = allergenFree?.length
         ? !intersects(recipe.allergens, allergenFree)
         : true;
@@ -113,35 +115,59 @@ export class InMemoryStore {
     const profile = user.profile;
     const available = new Set(input.availableIngredients.map(normalize));
     const allergens = profile?.allergens ?? [];
-    const budget = input.wantsToSpendMoney ? (input.budget ?? profile?.weeklyFoodBudget ?? 0) : 0;
+    const budget = input.wantsToSpendMoney
+      ? (input.budget ?? profile?.weeklyFoodBudget ?? 0)
+      : 0;
 
     return this.recipes
       .map((recipe) => {
-        const hasHardAllergenConflict = input.confirmAllergens && intersects(recipe.allergens, allergens);
+        const hasHardAllergenConflict =
+          input.confirmAllergens && intersects(recipe.allergens, allergens);
         const matchedIngredients = recipe.ingredients
           .filter((ingredient) => available.has(normalize(ingredient.name)))
           .map((ingredient) => ingredient.name);
         const missingIngredientLines = recipe.ingredients.filter(
-          (ingredient) => !available.has(normalize(ingredient.name)) && !ingredient.optional,
+          (ingredient) =>
+            !available.has(normalize(ingredient.name)) && !ingredient.optional,
         );
-        const missingIngredients = missingIngredientLines.map((ingredient) => ingredient.name);
+        const missingIngredients = missingIngredientLines.map(
+          (ingredient) => ingredient.name,
+        );
         const estimatedExtraCost = missingIngredientLines.reduce(
           (sum, ingredient) => sum + ingredient.estimatedPrice,
           0,
         );
-        const ingredientScore = Math.round((matchedIngredients.length / recipe.ingredients.length) * 55);
+        const ingredientScore = Math.round(
+          (matchedIngredients.length / recipe.ingredients.length) * 55,
+        );
         const budgetScore =
           !input.wantsToSpendMoney && estimatedExtraCost > 0
             ? 0
             : budget === 0
               ? 15
-              : Math.max(0, 25 - Math.round((estimatedExtraCost / Math.max(budget, 1)) * 20));
-        const allergyScore = hasHardAllergenConflict ? -100 : recipe.allergens.length === 0 ? 15 : 8;
-        const servingsScore = input.servings && recipe.servings >= input.servings ? 5 : 2;
+              : Math.max(
+                  0,
+                  25 -
+                    Math.round((estimatedExtraCost / Math.max(budget, 1)) * 20),
+                );
+        const allergyScore = hasHardAllergenConflict
+          ? -100
+          : recipe.allergens.length === 0
+            ? 15
+            : 8;
+        const servingsScore =
+          input.servings && recipe.servings >= input.servings ? 5 : 2;
         const difficultyScore = recipe.difficulty === "Kolay" ? 5 : 3;
         const matchScore = Math.max(
           0,
-          Math.min(100, ingredientScore + budgetScore + allergyScore + servingsScore + difficultyScore),
+          Math.min(
+            100,
+            ingredientScore +
+              budgetScore +
+              allergyScore +
+              servingsScore +
+              difficultyScore,
+          ),
         );
 
         return {
@@ -189,7 +215,11 @@ export class InMemoryStore {
     return session;
   }
 
-  addChatMessage(sessionId: string, role: RecipeChatMessage["role"], content: string) {
+  addChatMessage(
+    sessionId: string,
+    role: RecipeChatMessage["role"],
+    content: string,
+  ) {
     const session = this.getChatSession(sessionId);
     const message: RecipeChatMessage = {
       content,
@@ -222,7 +252,9 @@ export class InMemoryStore {
 
   getAchievements(userId: string) {
     this.getUser(userId);
-    const userPostCount = this.feedPosts.filter((post) => post.userId === userId).length;
+    const userPostCount = this.feedPosts.filter(
+      (post) => post.userId === userId,
+    ).length;
 
     return [
       {
@@ -244,4 +276,3 @@ export class InMemoryStore {
     ];
   }
 }
-

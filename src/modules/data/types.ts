@@ -84,4 +84,3 @@ export type FeedPost = {
   comment?: string;
   createdAt: string;
 };
-

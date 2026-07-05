@@ -1,5 +1,12 @@
 import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
-import { IsArray, IsBoolean, IsInt, IsOptional, IsString, Min } from "class-validator";
+import {
+  IsArray,
+  IsBoolean,
+  IsInt,
+  IsOptional,
+  IsString,
+  Min,
+} from "class-validator";
 
 export class RecommendRecipesDto {
   @ApiPropertyOptional({ example: "user_demo" })
@@ -33,4 +40,3 @@ export class RecommendRecipesDto {
   @IsBoolean()
   confirmAllergens?: boolean;
 }
-

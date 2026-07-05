@@ -14,4 +14,3 @@ export class UsersService {
     return this.store.updateProfile(this.store.getDefaultUserId(), dto);
   }
 }
-

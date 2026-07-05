@@ -17,4 +17,3 @@ export class SendRecipeChatMessageDto {
   @IsString()
   message!: string;
 }
-

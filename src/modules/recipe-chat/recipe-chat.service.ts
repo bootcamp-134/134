@@ -1,6 +1,9 @@
 import { Injectable } from "@nestjs/common";
 import { InMemoryStore } from "../data/in-memory.store";
-import type { CreateRecipeChatSessionDto, SendRecipeChatMessageDto } from "./dto";
+import type {
+  CreateRecipeChatSessionDto,
+  SendRecipeChatMessageDto,
+} from "./dto";
 
 function buildRecipeAssistantReply(recipeTitle: string, message: string) {
   const normalizedMessage = message.toLocaleLowerCase("tr-TR");
@@ -9,11 +12,17 @@ function buildRecipeAssistantReply(recipeTitle: string, message: string) {
     return `${recipeTitle} için alerjen bilgisini tarif detayındaki içeriklerden kontrol etmelisin. Emin olunmayan ürünlerde paket etiketi ve uzman görüşü önceliklidir.`;
   }
 
-  if (normalizedMessage.includes("fırın") || normalizedMessage.includes("tencere")) {
+  if (
+    normalizedMessage.includes("fırın") ||
+    normalizedMessage.includes("tencere")
+  ) {
     return `${recipeTitle} tarifinde ekipman değişikliği yapılabilir. Isıyı daha düşük tutup pişirme süresini kontrollü uzatman iyi olur.`;
   }
 
-  if (normalizedMessage.includes("kaç dakika") || normalizedMessage.includes("süre")) {
+  if (
+    normalizedMessage.includes("kaç dakika") ||
+    normalizedMessage.includes("süre")
+  ) {
     return `${recipeTitle} için pişirme süresini tarif detayındaki dakikaya yakın tut; sebze veya et kalınlığına göre 5-10 dakika oynayabilir.`;
   }
 
@@ -42,7 +51,11 @@ export class RecipeChatService {
   sendMessage(sessionId: string, dto: SendRecipeChatMessageDto) {
     const session = this.store.getChatSession(sessionId);
     const recipe = this.store.getRecipe(session.recipeId);
-    const userMessage = this.store.addChatMessage(sessionId, "user", dto.message);
+    const userMessage = this.store.addChatMessage(
+      sessionId,
+      "user",
+      dto.message,
+    );
     const assistantMessage = this.store.addChatMessage(
       sessionId,
       "assistant",
@@ -55,4 +68,3 @@ export class RecipeChatService {
     };
   }
 }
-
