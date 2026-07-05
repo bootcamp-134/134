@@ -2,51 +2,17 @@ import { ValidationPipe } from "@nestjs/common";
 import type { INestApplication } from "@nestjs/common";
 import { NestFactory } from "@nestjs/core";
 import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
-import { readFileSync } from "node:fs";
-import { createRequire } from "node:module";
 import { AppModule } from "./app.module";
 
-const requireFromCurrentFile = createRequire(__filename);
+const swaggerUiVersion = "5.32.8";
 
-const swaggerAssetRoutes = [
-  {
-    contentType: "text/css",
-    filePath: requireFromCurrentFile.resolve("swagger-ui-dist/swagger-ui.css"),
-    route: "/api/docs/swagger-ui.css",
-  },
-  {
-    contentType: "application/javascript",
-    filePath: requireFromCurrentFile.resolve(
-      "swagger-ui-dist/swagger-ui-bundle.js",
-    ),
-    route: "/api/docs/swagger-ui-bundle.js",
-  },
-  {
-    contentType: "application/javascript",
-    filePath: requireFromCurrentFile.resolve(
-      "swagger-ui-dist/swagger-ui-standalone-preset.js",
-    ),
-    route: "/api/docs/swagger-ui-standalone-preset.js",
-  },
-  {
-    contentType: "image/png",
-    filePath: requireFromCurrentFile.resolve(
-      "swagger-ui-dist/favicon-16x16.png",
-    ),
-    route: "/api/docs/favicon-16x16.png",
-  },
-  {
-    contentType: "image/png",
-    filePath: requireFromCurrentFile.resolve(
-      "swagger-ui-dist/favicon-32x32.png",
-    ),
-    route: "/api/docs/favicon-32x32.png",
-  },
-] as const;
+type HtmlResponse = {
+  type: (contentType: string) => StaticAssetResponse;
+  send: (body: string) => unknown;
+};
 
 type StaticAssetResponse = {
-  type: (contentType: string) => StaticAssetResponse;
-  send: (body: Buffer) => unknown;
+  send: (body: string) => unknown;
 };
 
 function getCorsOrigin() {
@@ -59,18 +25,44 @@ function getCorsOrigin() {
   return corsOrigin.split(",").map((origin) => origin.trim());
 }
 
-function registerSwaggerAssetRoutes(app: INestApplication) {
+function createSwaggerHtml() {
+  return `<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bereket AI Backend API</title>
+    <link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist@${swaggerUiVersion}/swagger-ui.css" />
+  </head>
+  <body>
+    <div id="swagger-ui"></div>
+    <script src="https://unpkg.com/swagger-ui-dist@${swaggerUiVersion}/swagger-ui-bundle.js" crossorigin></script>
+    <script src="https://unpkg.com/swagger-ui-dist@${swaggerUiVersion}/swagger-ui-standalone-preset.js" crossorigin></script>
+    <script>
+      window.onload = () => {
+        window.ui = SwaggerUIBundle({
+          url: "/api/docs-json",
+          dom_id: "#swagger-ui",
+          deepLinking: true,
+          presets: [
+            SwaggerUIBundle.presets.apis,
+            SwaggerUIStandalonePreset
+          ],
+          layout: "StandaloneLayout"
+        });
+      };
+    </script>
+  </body>
+</html>`;
+}
+
+function registerSwaggerPage(app: INestApplication) {
   const httpAdapter = app.getHttpAdapter();
 
-  for (const asset of swaggerAssetRoutes) {
-    httpAdapter.get(
-      asset.route,
-      (_request: unknown, response: StaticAssetResponse) => {
-        response.type(asset.contentType);
-        return response.send(readFileSync(asset.filePath));
-      },
-    );
-  }
+  httpAdapter.get("/api/docs", (_request: unknown, response: HtmlResponse) => {
+    response.type("text/html");
+    return response.send(createSwaggerHtml());
+  });
 }
 
 async function bootstrap() {
@@ -98,8 +90,11 @@ async function bootstrap() {
       .build();
 
     const document = SwaggerModule.createDocument(app, swaggerConfig);
-    registerSwaggerAssetRoutes(app);
-    SwaggerModule.setup("api/docs", app, document);
+    SwaggerModule.setup("api/docs", app, document, {
+      raw: ["json"],
+      ui: false,
+    });
+    registerSwaggerPage(app);
   }
 
   const port = Number(process.env.PORT ?? 3001);
