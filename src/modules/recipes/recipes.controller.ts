@@ -1,0 +1,21 @@
+import { Controller, Get, Param, Query } from "@nestjs/common";
+import { ApiTags } from "@nestjs/swagger";
+import { RecipeQueryDto } from "./dto";
+import { RecipesService } from "./recipes.service";
+
+@ApiTags("recipes")
+@Controller("recipes")
+export class RecipesController {
+  constructor(private readonly recipesService: RecipesService) {}
+
+  @Get()
+  listRecipes(@Query() query: RecipeQueryDto) {
+    return this.recipesService.listRecipes(query);
+  }
+
+  @Get(":id")
+  getRecipe(@Param("id") id: string) {
+    return this.recipesService.getRecipe(id);
+  }
+}
+
