@@ -59,6 +59,43 @@ Welcome
                 └── Recipe Details
 ```
 
+## Screenshots
+
+<table>
+  <tr>
+    <th>Welcome</th>
+    <th>Login</th>
+    <th>Register</th>
+  </tr>
+  <tr>
+    <td><a href="docs/screenshots/01-welcome.png"><img src="docs/screenshots/01-welcome.png" width="240" alt="BereketAI welcome screen"></a></td>
+    <td><a href="docs/screenshots/02-login.png"><img src="docs/screenshots/02-login.png" width="240" alt="BereketAI login screen"></a></td>
+    <td><a href="docs/screenshots/03-register.png"><img src="docs/screenshots/03-register.png" width="240" alt="BereketAI registration screen"></a></td>
+  </tr>
+  <tr>
+    <th>Forgot Password</th>
+    <th>Profile Setup</th>
+    <th>Ingredient Selection</th>
+  </tr>
+  <tr>
+    <td><a href="docs/screenshots/04-forgot-password.png"><img src="docs/screenshots/04-forgot-password.png" width="240" alt="BereketAI forgot password screen"></a></td>
+    <td><a href="docs/screenshots/05-profile-setup.png"><img src="docs/screenshots/05-profile-setup.png" width="240" alt="BereketAI profile setup screen"></a></td>
+    <td><a href="docs/screenshots/06-ingredient-selection.png"><img src="docs/screenshots/06-ingredient-selection.png" width="240" alt="BereketAI ingredient selection screen"></a></td>
+  </tr>
+  <tr>
+    <th>Shopping &amp; Budget</th>
+    <th>Recommendations</th>
+    <th>Recipe Details</th>
+  </tr>
+  <tr>
+    <td><a href="docs/screenshots/07-shopping-budget.png"><img src="docs/screenshots/07-shopping-budget.png" width="240" alt="BereketAI shopping and budget screen"></a></td>
+    <td><a href="docs/screenshots/08-recommendations.png"><img src="docs/screenshots/08-recommendations.png" width="240" alt="BereketAI recipe recommendations screen"></a></td>
+    <td><a href="docs/screenshots/09-recipe-detail.png"><img src="docs/screenshots/09-recipe-detail.png" width="240" alt="BereketAI recipe detail screen"></a></td>
+  </tr>
+</table>
+
+Select any screenshot to view it at full size.
+
 ## Technology Stack
 
 - Flutter
