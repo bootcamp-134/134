@@ -82,3 +82,7 @@ Detaylı notlar için [Deployment Notes](docs/deployment.md) dosyasına bakın.
 - [Backend Roadmap](docs/backend-roadmap.md)
 - [Data Pipeline Notes](docs/data-pipeline.md)
 - [Deployment Notes](docs/deployment.md)
+
+## Geliştirici
+
+Backend Samet DÖNMEZ ([sawetco](https://github.com/sawetco)) tarafından geliştirilmektedir.
